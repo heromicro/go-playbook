@@ -12,12 +12,12 @@ import (
 var Tmplt_ansible_file = `
     - name: {{ .Name }} 
       ansible.builtin.file:
-        {{.Path}}
+        path: {{.Path}}
         {{- if .State }}
         state: {{ .State }}
         {{- end }}
-        {{- if .Securse }}
-        recurse: {{ .Securse }}
+        {{- if .Recurse }}
+        recurse: {{ .Recurse }}
         {{- end }}
         {{- if .Owner }}
         owner: {{ .Owner }}
@@ -35,37 +35,40 @@ var Tmplt_ansible_file = `
         dest: {{ .Dest }}
         {{- end }}
         {{- if .AccessTime }}
-        dest: {{ .AccessTime }}
+        access_time: {{ .AccessTime }}
         {{- end }}
         {{- if .AccessTimeFormat }}
-        dest: {{ .AccessTimeFormat }}
+        access_time_format: {{ .AccessTimeFormat }}
         {{- end }}
         {{- if .ModificationTime }}
-        dest: {{ .ModificationTime }}
+        modification_time: {{ .ModificationTime }}
         {{- end }}
         {{- if .ModificationTimeFormat }}
-        dest: {{ .ModificationTimeFormat }}
+        modification_time_format: {{ .ModificationTimeFormat }}
         {{- end }}
         {{- if .Attributes }}
-        dest: {{ .Attributes }}
+        attributes: {{ .Attributes }}
         {{- end }}
         {{- if .Follow }}
-        dest: {{ .Follow }}
+        follow: {{ .Follow }}
         {{- end }}
         {{- if .Force }}
-        dest: {{ .Force }}
+        force: {{ .Force }}
         {{- end }}
         {{- if .UnsafeWrites }}
-        dest: {{ .UnsafeWrites }}
+        unsafe_writes: {{ .UnsafeWrites }}
         {{- end }}
         {{- if .SeLevel }}
-        dest: {{ .SeLevel }}
+        selevel: {{ .SeLevel }}
         {{- end }}
         {{- if .SeRole }}
-        dest: {{ .SeRole }}
+        serole: {{ .SeRole }}
+        {{- end }}
+        {{- if .SeType }}
+        seuser: {{ .SeType }}
         {{- end }}
         {{- if .SeUser }}
-        dest: {{ .SeUser }}
+        seuser: {{ .SeUser }}
         {{- end }}
 `
 
@@ -92,6 +95,7 @@ type AnsibleBuiltinFile struct {
 
 	SeLevel string `json:"selevel"`
 	SeRole  string `json:"serole"`
+	SeType  string `json:"setype"`
 	SeUser  string `json:"seuser"`
 }
 
