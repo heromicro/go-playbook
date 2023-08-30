@@ -101,7 +101,7 @@ func (a *AnsibleBuiltinFile) String() string {
 
 func (a *AnsibleBuiltinFile) MakeAnsibleTask() (string, error) {
 
-	tmpl := template.Must(template.New("ansible_builtin_gather_facts").Parse(Tmplt_ansible_file))
+	tmpl := template.Must(template.New("ansible_builtin_file").Parse(Tmplt_ansible_file))
 	var buff bytes.Buffer
 
 	err := tmpl.Execute(&buff, *a)
