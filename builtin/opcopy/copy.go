@@ -1,4 +1,4 @@
-package opfile
+package opcopy
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 )
 
 // https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
-var Tmplt_ansible_copy_file = `
+var Tmplt_ansible_copy = `
     - name: copy {{- if .Content }} " {{- range $index, $word := .Content }} {{- $word }}  {{- end }}"{{- end }} {{- if .Src }} {{- .Src }} {{- end }} to {{ .Dest }} 
       ansible.builtin.copy:
         {{- if .Content }}
@@ -62,7 +62,7 @@ func (a *AnsibleCopyFile) String() string {
 
 func (a *AnsibleCopyFile) MakeAnsibleTask() (string, error) {
 
-	tmpl := template.Must(template.New("ansible_copy_file").Parse(Tmplt_ansible_copy_file))
+	tmpl := template.Must(template.New("ansible_builtin_copy").Parse(Tmplt_ansible_copy))
 	var buff bytes.Buffer
 
 	err := tmpl.Execute(&buff, *a)
