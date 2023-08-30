@@ -9,8 +9,8 @@ import (
 )
 
 // https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
-var Tmplt_ansible_copy = `
-    - name: copy {{- if .Content }} " {{- range $index, $word := .Content }} {{- $word }}  {{- end }}"{{- end }} {{- if .Src }} {{- .Src }} {{- end }} to {{ .Dest }} 
+var Tmplt_ansible_copy_file = `
+    - name: copy {{- if .Content }} content {{- end }} {{- if .Src }} {{- .Src }} {{- end }} to {{ .Dest }} 
       ansible.builtin.copy:
         {{- if .Content }}
         content: | {{- range $index, $word := .Content }}
@@ -39,7 +39,9 @@ var Tmplt_ansible_copy = `
         {{- if .Backup }}
         backup: {{ .Backup }}
         {{- end }}
-        validate: /usr/sbin/visudo -csf %s
+        {{- if .Validate }}
+        validate: {{ .Validate }}
+        {{- end }}
 `
 
 type AnsibleCopyFile struct {
@@ -54,6 +56,7 @@ type AnsibleCopyFile struct {
 	RemoteSrc enumtipe.CostomBool `json:"remote_src"` // true, false
 	Follow    enumtipe.CostomBool `json:"follow"`     // true, false
 	Backup    enumtipe.CostomBool `json:"backup"`     // true, false
+	Validate  string              `json:"validate"`   // true, false
 }
 
 func (a *AnsibleCopyFile) String() string {
