@@ -19,7 +19,7 @@ var Tmplt_ansible_builtin_script = `
 {{- Indent " " 0}}   {{- if .ChDir }}
 {{ Indent " " 4}}    chdir: {{ .ChDir }}
 {{- Indent " " 0}}   {{- end }}
-{{ Indent " " 4}}  {{ with .Args }}
+{{- Indent " " 0}} {{- with .Args }}
 {{ Indent " " 4}}  args:
 {{- Indent " " 0}} {{ if .ChDir }}
 {{ Indent " " 4}}    chdir: {{ .ChDir }}
