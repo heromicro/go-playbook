@@ -10,66 +10,66 @@ import (
 
 // https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
 var Tmplt_ansible_file = `
-    - name: {{ .Name }} 
-      ansible.builtin.file:
-        path: {{.Path}}
-        {{- if .State }}
-        state: {{ .State }}
-        {{- end }}
-        {{- if .Recurse }}
-        recurse: {{ .Recurse }}
-        {{- end }}
-        {{- if .Owner }}
-        owner: {{ .Owner }}
-        {{- end }}
-        {{- if .Group }}
-        group: {{ .Group }} 
-        {{- end }}
-        {{- if .Mode }}
-        mode: {{ .Mode }}
-        {{- end }}
-        {{- if .Src }}
-        src: {{ .Src }}
-        {{- end }}
-        {{- if .Dest }}
-        dest: {{ .Dest }}
-        {{- end }}
-        {{- if .AccessTime }}
-        access_time: {{ .AccessTime }}
-        {{- end }}
-        {{- if .AccessTimeFormat }}
-        access_time_format: {{ .AccessTimeFormat }}
-        {{- end }}
-        {{- if .ModificationTime }}
-        modification_time: {{ .ModificationTime }}
-        {{- end }}
-        {{- if .ModificationTimeFormat }}
-        modification_time_format: {{ .ModificationTimeFormat }}
-        {{- end }}
-        {{- if .Attributes }}
-        attributes: {{ .Attributes }}
-        {{- end }}
-        {{- if .Follow }}
-        follow: {{ .Follow }}
-        {{- end }}
-        {{- if .Force }}
-        force: {{ .Force }}
-        {{- end }}
-        {{- if .UnsafeWrites }}
-        unsafe_writes: {{ .UnsafeWrites }}
-        {{- end }}
-        {{- if .SeLevel }}
-        selevel: {{ .SeLevel }}
-        {{- end }}
-        {{- if .SeRole }}
-        serole: {{ .SeRole }}
-        {{- end }}
-        {{- if .SeType }}
-        seuser: {{ .SeType }}
-        {{- end }}
-        {{- if .SeUser }}
-        seuser: {{ .SeUser }}
-        {{- end }}
+{{ Indent " " 4}}- name: {{ .Name }} 
+{{ Indent " " 4}}  ansible.builtin.file:
+{{ Indent " " 4}}    path: {{.Path}}
+{{- Indent " " 0}}   {{- if .State }}
+{{ Indent " " 4}}    state: {{ .State }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Recurse }}
+{{ Indent " " 4}}    recurse: {{ .Recurse }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Owner }}
+{{ Indent " " 4}}    owner: {{ .Owner }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Group }}
+{{ Indent " " 4}}    group: {{ .Group }} 
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Mode }}
+{{ Indent " " 4}}    mode: {{ .Mode }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Src }}
+{{ Indent " " 4}}    src: {{ .Src }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Dest }}
+{{ Indent " " 4}}    dest: {{ .Dest }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .AccessTime }}
+{{ Indent " " 4}}    access_time: {{ .AccessTime }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .AccessTimeFormat }}
+{{ Indent " " 4}}    access_time_format: {{ .AccessTimeFormat }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .ModificationTime }}
+{{ Indent " " 4}}    modification_time: {{ .ModificationTime }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .ModificationTimeFormat }}
+{{ Indent " " 4}}    modification_time_format: {{ .ModificationTimeFormat }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Attributes }}
+{{ Indent " " 4}}    attributes: {{ .Attributes }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Follow }}
+{{ Indent " " 4}}    follow: {{ .Follow }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Force }}
+{{ Indent " " 4}}    force: {{ .Force }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .UnsafeWrites }}
+{{ Indent " " 4}}    unsafe_writes: {{ .UnsafeWrites }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .SeLevel }}
+{{ Indent " " 4}}    selevel: {{ .SeLevel }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .SeRole }}
+{{ Indent " " 4}}    serole: {{ .SeRole }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .SeType }}
+{{ Indent " " 4}}    seuser: {{ .SeType }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .SeUser }}
+{{ Indent " " 4}}    seuser: {{ .SeUser }}
+{{- Indent " " 0}}   {{- end }}
 `
 
 type AnsibleBuiltinFile struct {
@@ -105,7 +105,11 @@ func (a *AnsibleBuiltinFile) String() string {
 
 func (a *AnsibleBuiltinFile) MakeAnsibleTask() (string, error) {
 
-	tmpl := template.Must(template.New("ansible_builtin_file").Parse(Tmplt_ansible_file))
+	funcMap := template.FuncMap{
+		"Indent": strings.Repeat,
+	}
+
+	tmpl := template.Must(template.New("ansible_builtin_file").Funcs(funcMap).Parse(Tmplt_ansible_file))
 	var buff bytes.Buffer
 
 	err := tmpl.Execute(&buff, *a)

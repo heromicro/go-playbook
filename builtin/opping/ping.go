@@ -8,8 +8,8 @@ import (
 )
 
 var Tmplt_ansible_ping = `
-    - name: {{ .Name }}  
-      ansible.builtin.ping:
+{{ Indent " " 4}}- name: {{ .Name }}  
+{{ Indent " " 4}}    ansible.builtin.ping:
 `
 
 type AnsibleBuiltinPing struct {
@@ -22,7 +22,11 @@ func (a *AnsibleBuiltinPing) String() string {
 
 func (a *AnsibleBuiltinPing) MakeAnsibleTask() (string, error) {
 
-	tmpl := template.Must(template.New("ansible_builtin_ping").Parse(Tmplt_ansible_ping))
+	funcMap := template.FuncMap{
+		"Indent": strings.Repeat,
+	}
+
+	tmpl := template.Must(template.New("ansible_builtin_ping").Funcs(funcMap).Parse(Tmplt_ansible_ping))
 	var buff bytes.Buffer
 
 	err := tmpl.Execute(&buff, *a)

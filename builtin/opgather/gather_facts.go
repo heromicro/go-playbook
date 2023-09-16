@@ -9,13 +9,13 @@ import (
 )
 
 var Tmplt_ansible_gather_facts = `
-    - name: {{ .Name }} 
-      ansible.builtin.gather_facts:
-        {{- if .Parallel }}
-        parallel: {{ .Parallel }}
-        {{- else }}
-        parallel: false
-        {{- end }}
+{{ Indent " " 4}}- name: {{ .Name }} 
+{{ Indent " " 4}}    ansible.builtin.gather_facts:
+{{- Indent " " 0}}     {{- if .Parallel }}
+{{ Indent " " 4}}      parallel: {{ .Parallel }}
+{{- Indent " " 0}}     {{- else }}
+{{ Indent " " 4}}      parallel: false
+{{- Indent " " 0}}     {{- end }}
 `
 
 type AnsibleBuiltinGatherFacts struct {
@@ -29,7 +29,11 @@ func (a *AnsibleBuiltinGatherFacts) String() string {
 
 func (a *AnsibleBuiltinGatherFacts) MakeAnsibleTask() (string, error) {
 
-	tmpl := template.Must(template.New("ansible_builtin_gather_facts").Parse(Tmplt_ansible_gather_facts))
+	funcMap := template.FuncMap{
+		"Indent": strings.Repeat,
+	}
+
+	tmpl := template.Must(template.New("ansible_builtin_gather_facts").Funcs(funcMap).Parse(Tmplt_ansible_gather_facts))
 	var buff bytes.Buffer
 
 	err := tmpl.Execute(&buff, *a)
