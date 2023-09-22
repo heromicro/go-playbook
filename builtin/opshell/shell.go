@@ -22,18 +22,20 @@ var Tmplt_ansible_builtin_shell = `
 {{- Indent " " 0}}   {{- if .Creates }}
 {{ Indent " " 4}}    creates: {{ .Creates }}
 {{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}} {{- if .Args }}
 {{- Indent " " 0}} {{- with .Args }}
 {{ Indent " " 4}}  args:
-{{- Indent " " 0}} {{ if .ChDir }}
+{{- Indent " " 0}}   {{- if .ChDir }}
 {{ Indent " " 4}}    chdir: {{ .ChDir }}
-{{- Indent " " 0}} {{- end }}
-{{- Indent " " 0}} {{ if .Creates }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Creates }}
 {{ Indent " " 4}}    creates: {{ .Creates }}
-{{- Indent " " 0}} {{- end }}
-{{- Indent " " 0}} {{ if .Executable }}
+{{- Indent " " 0}}   {{- end }}
+{{- Indent " " 0}}   {{- if .Executable }}
 {{ Indent " " 4}}    executable: {{ .Executable }}
+{{- Indent " " 0}}   {{- end }}
 {{- Indent " " 0}} {{- end }}
-{{- Indent " " 0}} {{ end }}
+{{- Indent " " 0}} {{- end }}
 `
 
 type AnsibleBuiltinShell struct {
