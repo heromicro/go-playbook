@@ -9,7 +9,7 @@ import (
 
 var Tmplt_ansible_ping = `
 {{ Indent " " 4}}- name: {{ .Name }}  
-{{ Indent " " 4}}    ansible.builtin.ping:
+{{ Indent " " 4}}  ansible.builtin.ping:
 `
 
 type AnsibleBuiltinPing struct {

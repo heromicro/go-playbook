@@ -10,12 +10,12 @@ import (
 
 var Tmplt_ansible_gather_facts = `
 {{ Indent " " 4}}- name: {{ .Name }} 
-{{ Indent " " 4}}    ansible.builtin.gather_facts:
-{{- Indent " " 0}}     {{- if .Parallel }}
-{{ Indent " " 4}}      parallel: {{ .Parallel }}
-{{- Indent " " 0}}     {{- else }}
-{{ Indent " " 4}}      parallel: false
-{{- Indent " " 0}}     {{- end }}
+{{ Indent " " 4}}  ansible.builtin.gather_facts:
+{{- Indent " " 0}}   {{- if .Parallel }}
+{{ Indent " " 4}}    parallel: {{ .Parallel }}
+{{- Indent " " 0}}   {{- else }}
+{{ Indent " " 4}}    parallel: false
+{{- Indent " " 0}}   {{- end }}
 `
 
 type AnsibleBuiltinGatherFacts struct {
