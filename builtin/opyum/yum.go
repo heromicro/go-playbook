@@ -14,7 +14,7 @@ var Tmplt_ansible_builtin_yum = `
 {{ Indent " " 4}}  ansible.builtin.yum:
 {{ Indent " " 4}}    name: {{- range $index, $word := .Name }}
 {{ Indent " " 4}}      - {{ $word }} 
-{{- Indent " " 0}}    {{- end }}
+{{- Indent " " 0}}     {{- end }}
 {{- Indent " " 0}}   {{- if .State }}
 {{ Indent " " 4}}    state: {{ .State }}
 {{- Indent " " 0}}   {{- end }}

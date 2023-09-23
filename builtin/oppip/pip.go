@@ -9,6 +9,7 @@ import (
 	"github.com/heromicro/go-playbook/pkg/helper"
 )
 
+// https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
 var Tmplt_ansible_builtin_pip = `
 {{ Indent " " 4}}- name: pip install
 {{ Indent " " 4}}  ansible.builtin.pip:

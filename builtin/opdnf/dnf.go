@@ -14,7 +14,7 @@ var Tmplt_ansible_builtin_dnf = `
 {{ Indent " " 4}}  ansible.builtin.dnf:
 {{ Indent " " 4}}    name: {{- range $index, $word := .Name }}
 {{ Indent " " 4}}      - {{ $word }} 
-{{- Indent " " 0}}    {{- end }}
+{{- Indent " " 0}}     {{- end }}
 {{- Indent " " 0}}   {{- if .State }}
 {{ Indent " " 4}}    state: {{ .State }}
 {{- Indent " " 0}}   {{- end }}
