@@ -29,7 +29,7 @@ type AnsibleBuiltinPackage struct {
 }
 
 func (a *AnsibleBuiltinPackage) String() string {
-	return jsonhelper.MarshalToString(a)
+	return helper.MarshalToString(a)
 }
 
 func (a *AnsibleBuiltinPackage) MakeAnsibleTask() (string, error) {

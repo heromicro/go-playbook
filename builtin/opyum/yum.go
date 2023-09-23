@@ -149,7 +149,7 @@ type AnsibleBuiltinYum struct {
 }
 
 func (a *AnsibleBuiltinYum) String() string {
-	return jsonhelper.MarshalToString(a)
+	return helper.MarshalToString(a)
 }
 
 func (a *AnsibleBuiltinYum) MakeAnsibleTask() (string, error) {

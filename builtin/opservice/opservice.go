@@ -49,7 +49,7 @@ type AnsibleBuiltinService struct {
 }
 
 func (a *AnsibleBuiltinService) String() string {
-	return jsonhelper.MarshalToString(a)
+	return helper.MarshalToString(a)
 }
 
 func (a *AnsibleBuiltinService) MakeAnsibleTask() (string, error) {

@@ -68,7 +68,7 @@ type AnsibleBuiltinPip struct {
 }
 
 func (a *AnsibleBuiltinPip) String() string {
-	return jsonhelper.MarshalToString(a)
+	return helper.MarshalToString(a)
 }
 
 func (a *AnsibleBuiltinPip) MakeAnsibleTask() (string, error) {

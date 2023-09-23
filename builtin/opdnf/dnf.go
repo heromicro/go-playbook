@@ -153,7 +153,7 @@ type AnsibleBuiltinDnf struct {
 }
 
 func (a *AnsibleBuiltinDnf) String() string {
-	return jsonhelper.MarshalToString(a)
+	return helper.MarshalToString(a)
 }
 
 func (a *AnsibleBuiltinDnf) MakeAnsibleTask() (string, error) {
