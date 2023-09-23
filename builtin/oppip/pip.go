@@ -54,7 +54,7 @@ type AnsibleBuiltinPip struct {
 	Name                   []string            `json:"name"`
 	Chdir                  string              `json:"chdir"`
 	Editable               enumtipe.CostomBool `json:"editable"`
-	Executable             enumtipe.CostomBool `json:"executable"`
+	Executable             string              `json:"executable"`
 	ExtraArgs              string              `json:"extra_args"`
 	Requirements           string              `json:"requirements"`
 	State                  PipState            `json:"state"`
