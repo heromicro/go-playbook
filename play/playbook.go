@@ -26,6 +26,16 @@ var Tmplt_ansible_playbook = `
   {{- if .RemoteUser}}
   remote_user: {{ .RemoteUser }}
   {{- end }}
+  {{- if .Vars }}
+  vars:{{- range $key, $val := .Vars }}
+    {{ $key }}: {{ $val }}
+  {{- end }}
+  {{- end }}
+  {{- if .VarsFiles }}
+  vars_files: {{ range $index, $word := .VarsFiles }}
+    - {{ $word }}
+    {{- end }}
+  {{- end }}
   gather_facts: {{ .GatherFacts }}
 
   {{- if .PrevTasks }}
@@ -52,6 +62,9 @@ type Playbook struct {
 	RemoteUser string   `json:"remote_user"`
 	Password   string   `json:"password"`
 	PrivateKey string   `json:"private_key"`
+
+	Vars      map[string]any `json:"vars"`
+	VarsFiles []string       `json:"vars_files"`
 
 	GatherFacts enumtipe.CostomBool `json:"gather_facts"`
 
